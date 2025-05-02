@@ -1,7 +1,4 @@
-import webbrowser
-import os
 
-html_content = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,21 +86,21 @@ html_content = """
 
     <script>
         function goFullScreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+
             document.getElementById("click-message").style.display = "none";
             document.body.style.background = "radial-gradient(circle, black, red)";
             document.getElementById("hacked-message").style.display = "block";
             typeRansomNote();
-
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch((err) => {
-                    console.warn("Fullscreen failed:", err);
-                });
-            }
         }
 
         function typeRansomNote() {
-            const text = "Your files have been encrypted.\\nTo restore access, send 5 BTC to the address shown below.\\nAny attempt to close this window or restart your computer will result in permanent data loss.";
+            const text = "Your files have been encrypted.
+To restore access, send 5 BTC to the address shown below.
+Any attempt to close this window or restart your computer will result in permanent data loss.";
             let i = 0;
             let speed = 40;
 
@@ -120,65 +117,19 @@ html_content = """
     </script>
 </head>
 
-<body>
-    <h1 id="click-message">Press <span style="color:red;">Enter</span> to activate</h1>
+<body onclick="goFullScreen()">
+    <h1 id="click-message">Click anywhere to enter Fullscreen</h1>
 
     <div id="hacked-message">
         <div class="big-text">YOU ARE HACKED!</div>
+
         <div class="loading-bar">
             <div class="loading-fill"></div>
         </div>
+
         <div class="ransom-note">
             <pre id="ransom-text"></pre>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                goFullScreen();
-            }
-        });
-
-        function goFullScreen() {
-            document.getElementById("click-message").style.display = "none";
-            document.body.style.background = "radial-gradient(circle, black, red)";
-            document.getElementById("hacked-message").style.display = "block";
-            typeRansomNote();
-
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch((err) => {
-                    console.warn("Fullscreen failed:", err);
-                });
-            }
-        }
-
-        function typeRansomNote() {
-            const text = "Your files have been encrypted.\\nTo restore access, send 5 BTC to the address shown below.\\nAny attempt to close this window or restart your computer will result in permanent data loss.";
-            let i = 0;
-            let speed = 40;
-
-            function typeWriter() {
-                if (i < text.length) {
-                    document.getElementById("ransom-text").innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                }
-            }
-
-            typeWriter();
-        }
-    </script>
 </body>
 </html>
-"""
-
-# Save HTML to local file
-html_file = "hacked_prank_fixed.html"
-with open(html_file, "w") as f:
-    f.write(html_content)
-
-# Open in default browser
-file_url = f"file://{os.path.abspath(html_file)}"
-webbrowser.open(file_url)

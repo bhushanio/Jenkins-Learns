@@ -1,7 +1,4 @@
-import webbrowser
-import os
 
-html_content = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,7 +100,7 @@ html_content = """
         }
 
         function typeRansomNote() {
-            const text = "Your files have been encrypted.\\nTo restore access, send 5 BTC to the address shown below.\\nAny attempt to close this window or restart your computer will result in permanent data loss.";
+            const text = "Your files have been encrypted.\nTo restore access, send 5 BTC to the address shown below.\nAny attempt to close this window or restart your computer will result in permanent data loss.";
             let i = 0;
             let speed = 40;
 
@@ -155,7 +152,7 @@ html_content = """
         }
 
         function typeRansomNote() {
-            const text = "Your files have been encrypted.\\nTo restore access, send 5 BTC to the address shown below.\\nAny attempt to close this window or restart your computer will result in permanent data loss.";
+            const text = "Your files have been encrypted.\nTo restore access, send 5 BTC to the address shown below.\nAny attempt to close this window or restart your computer will result in permanent data loss.";
             let i = 0;
             let speed = 40;
 
@@ -172,13 +169,3 @@ html_content = """
     </script>
 </body>
 </html>
-"""
-
-# Save HTML to local file
-html_file = "hacked_prank_fixed.html"
-with open(html_file, "w") as f:
-    f.write(html_content)
-
-# Open in default browser
-file_url = f"file://{os.path.abspath(html_file)}"
-webbrowser.open(file_url)
