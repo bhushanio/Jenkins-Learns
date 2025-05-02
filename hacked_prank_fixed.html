@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,38 +82,6 @@
             100% {opacity: 1;}
         }
     </style>
-
-    <script>
-        function goFullScreen() {
-            document.getElementById("click-message").style.display = "none";
-            document.body.style.background = "radial-gradient(circle, black, red)";
-            document.getElementById("hacked-message").style.display = "block";
-            typeRansomNote();
-
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch((err) => {
-                    console.warn("Fullscreen failed:", err);
-                });
-            }
-        }
-
-        function typeRansomNote() {
-            const text = "Your files have been encrypted.\nTo restore access, send 5 BTC to the address shown below.\nAny attempt to close this window or restart your computer will result in permanent data loss.";
-            let i = 0;
-            let speed = 40;
-
-            function typeWriter() {
-                if (i < text.length) {
-                    document.getElementById("ransom-text").innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                }
-            }
-
-            typeWriter();
-        }
-    </script>
 </head>
 
 <body>
@@ -122,9 +89,11 @@
 
     <div id="hacked-message">
         <div class="big-text">YOU ARE HACKED!</div>
+
         <div class="loading-bar">
             <div class="loading-fill"></div>
         </div>
+
         <div class="ransom-note">
             <pre id="ransom-text"></pre>
         </div>
@@ -156,16 +125,19 @@
             let i = 0;
             let speed = 40;
 
-            function typeWriter() {
-                if (i < text.length) {
-                    document.getElementById("ransom-text").innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                }
-            }
-
-            typeWriter();
+    function typeWriter() {
+        if (i < text.length) {
+            // Replace newlines with <br> for HTML rendering
+            const char = text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+            document.getElementById("ransom-text").innerHTML += char;
+            i++;
+            setTimeout(typeWriter, speed);
         }
+    }
+
+    typeWriter();
+}
+
     </script>
 </body>
 </html>
